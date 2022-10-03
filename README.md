@@ -1,2 +1,3 @@
-# nodejs-handcrafted-timeout
-Handcrafted timeout pattern implemented using Nodejs
+# Timeouts
+
+Timeout pattern examples using NodeJS
