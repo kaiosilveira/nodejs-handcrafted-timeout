@@ -1,4 +1,5 @@
 import ManagedHTTPClient from '.';
+import XHRClientWrapper from '../xhr-client-wrapper';
 
 describe('ManagedHTTPClient', () => {
   const url = 'https://my-api.com/path/to/resource';
@@ -6,7 +7,7 @@ describe('ManagedHTTPClient', () => {
   it('should execute a GET request', async () => {
     const expectedResult = [{ id: 1, name: 'Kaio' }];
     const fakeGetFn = jest.fn();
-    const http = { get: fakeGetFn };
+    const http = { get: fakeGetFn } as XHRClientWrapper;
 
     fakeGetFn.mockReturnValue(Promise.resolve(expectedResult));
 
@@ -20,7 +21,7 @@ describe('ManagedHTTPClient', () => {
   it('should throw a managed timeout error if request exceeds time limit', async () => {
     const timeoutMs = 500;
     const noop = () => {};
-    const http = { get: () => new Promise(noop) };
+    const http = { get: () => new Promise(noop) } as XHRClientWrapper;
 
     const client = new ManagedHTTPClient({ http, timeoutMs });
 
