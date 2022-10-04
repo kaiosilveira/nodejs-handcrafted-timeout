@@ -6,7 +6,7 @@ Timeouts are a great way of avoiding slow responses and cascading failures, they
 
 ## Handcrafted timeout in NodeJS
 
-Even when you're not using a third-party library to perform http requests, you can still easily set up a timeout configuration to use with your bare `xhr` tooling. This example implements a `ManagedHTTPClient` responsible for exposing http methods abstracted on top of your favorite `XHRClientWrapper` (I had a go with 'node:http', for instance). The class looks simple and straightforward and although it only contains the `get` request, the idea ids clear. Here how it looks like:
+Even when you're not using a third-party library to perform http requests, you can still easily set up a timeout configuration to use with your bare `xhr` tooling. This example implements a `ManagedHTTPClient` responsible for exposing http methods abstracted on top of your favorite `XHRClientWrapper` (I had a go with `node:http`, for instance). The class looks simple and straightforward and although it only contains the `get` request, the idea ids clear. Here's how it looks like:
 
 ```javascript
 export default class ManagedHTTPClient {
@@ -34,13 +34,13 @@ export default class ManagedHTTPClient {
 }
 ```
 
-To forcefully interrupt a hanging request, we resorted to `Promise.race`, which receives as its argument an array of promises and executes all of them in parallel, aborting all the others as soon as the first result comes through. The trick here is that we're running our actual request (`this.http.get(url)`) in parallel with a dummy `timeoutPromise`, which does nothing but rejecting after the specified `timeoutMs`. It means that if the actual requests takes longer than our defined timeout for `ManagedHTTPClient` the promise returned by `ManagedHTTPClient.get` will reject using the timeout error message.
+To forcefully interrupt a hanging request, we resorted to `Promise.race`, which receives as its argument an array of promises and executes them all in parallel, aborting all the others as soon as the first result comes through. The trick here is that we're running our actual request (`this.http.get(url)`) in parallel with a dummy `timeoutPromise`, which does nothing but rejecting after the specified `timeoutMs`. It means that if the actual request takes longer than our defined timeout for `ManagedHTTPClient`, the promise returned by `ManagedHTTPClient.get` will reject using the timeout error message.
 
-The working code for this example is available at [./src/handcrafted-example/](./src/handcrafted-example/).
+The working code for this example is available at [handcrafted-example](./src/handcrafted-example/).
 
 ## Timeouts in Mongoose
 
-Mongoose is one of the most popular ways of integrating with MongoDB when using NodeJS and also a good example of well-specified timeouts by default. They use a default timeout of `30000` for for connection attempts and a timeout of 6 minutes (360000ms) for socket inactivity. They also provide a `heartbeatFrequencyMS` with keeps pinging the database server from time to time and close the connection of it fails. Here's an example of configuration for its various timeouts characteristics:
+Mongoose is one of the most popular ways of integrating with MongoDB when using NodeJS and is also a good example of well-specified timeouts by default. They use a default timeout of `30000` for for connection attempts and a timeout of 6 minutes (`360000ms`) for socket inactivity. They also provide a `heartbeatFrequencyMS` which keeps pinging the database server from time to time and close the connection if it fails. Here's an example of configuration using its various timeouts characteristics:
 
 ```javascript
 const options = {
@@ -56,7 +56,7 @@ For the official `mongoose` documentation on configuration options and timeouts,
 
 ## Timeouts in Axios
 
-Axios is one of the most popular libraries when it comes o performing HTTP requests. It's commonly seen both in the frontend and backend worlds. And it's an example of library that do not specifies a timeout by default. Hopefully, though, it's pretty simple and straightforward to do so when creating an Axios request:
+Axios is one of the most popular libraries when it comes to performing HTTP requests. It's commonly seen both in the frontend and backend worlds and it's an example of library that do not specify a timeout by default. Hopefully, though, it's pretty simple and straightforward to do so when creating an Axios request:
 
 ```javascript
 axios.get('/user?ID=12345', { timeout: 1000 });
