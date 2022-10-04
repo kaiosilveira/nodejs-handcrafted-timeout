@@ -1,6 +1,6 @@
 [![Continuous Integration](https://github.com/kaiosilveira/nodejs-timeouts/actions/workflows/ci.yml/badge.svg)](https://github.com/kaiosilveira/nodejs-timeouts/actions/workflows/ci.yml)
 
-This repository expands, with working examples and library analysis, the discussion of timeouts, as described in "Release it! - Nygard" and is part of my Stability Pattern Series. Check out [kaiosilveira/stability-patterns](https://github.com/kaiosilveira/stability-patterns) for more details
+_This repository expands, with working examples and library analysis, the discussion of timeouts, as described in "Release it! - Nygard" and is part of my Stability Pattern Series. Check out [kaiosilveira/stability-patterns](https://github.com/kaiosilveira/stability-patterns) for more details_
 
 # Timeouts
 
