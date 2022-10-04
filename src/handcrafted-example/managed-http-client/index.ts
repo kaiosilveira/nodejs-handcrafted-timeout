@@ -1,10 +1,15 @@
 import XHRClientWrapper from '../xhr-client-wrapper';
 
+export type ManagedHTTPClientProps = {
+  http: XHRClientWrapper;
+  timeoutMs: number;
+};
+
 export default class ManagedHTTPClient {
   http: XHRClientWrapper;
   timeoutMs: number;
 
-  constructor({ http, timeoutMs }: { http: XHRClientWrapper; timeoutMs: number }) {
+  constructor({ http, timeoutMs }: ManagedHTTPClientProps) {
     this.http = http;
     this.timeoutMs = timeoutMs;
   }
